@@ -103,3 +103,6 @@ Unit tests are testing the system components
 В эндпоинте, нужно обязательно указать в хедерах X-CSRF-TOKEN, взять его можно из сессии в браузере или отправив гет запрос и взять из ответа.
 ![image](https://user-images.githubusercontent.com/66309313/229360732-af4fc105-a712-4d5b-838a-6961e75507bd.png)
 
+![image](https://user-images.githubusercontent.com/66309313/229360828-dc68f81f-a16f-47d7-9685-7c5c598a09a7.png)
+
+
