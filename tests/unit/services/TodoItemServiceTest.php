@@ -57,5 +57,28 @@ class TodoItemServiceTest extends Unit
         $this->expectException(Exception::class);
         $this->todoItemService->update($clonedTodoItem);
     }
+
+    public function testUpdateTodoItem(): void
+    {
+        // Create a new todo item and save it to the database
+        $todoItem = new TodoItem([
+            'title' => 'Test Todo Item',
+            'priority' => 1,
+        ]);
+        $todoItem->save();
+
+        // Update the todo item
+        $todoItem->title = 'Updated Todo Item';
+        $todoItem->priority = 2;
+        $this->todoItemService->update($todoItem);
+
+        // Retrieve the updated todo item from the database
+        $updatedTodoItem = TodoItem::findOne($todoItem->id);
+
+        // Verify that the updated todo item has the correct values
+        $this->assertEquals('Updated Todo Item', $updatedTodoItem->title);
+        $this->assertEquals(2, $updatedTodoItem->priority);
+    }
+
 }
 
