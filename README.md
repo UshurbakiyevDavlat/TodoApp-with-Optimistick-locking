@@ -56,7 +56,11 @@ return [
     'charset' => 'utf8',
 ];
 
-# Notes
+````
+
+
+### Notes
+~~~
 - I used `Yii2` framework for this project
 - I used `Docker` for this project
 - I used `Docker-compose` for this project
@@ -65,8 +69,8 @@ return [
 - I used `Nginx` for this project
 - I used `PHP 7.4` for this project
 - Container of application name for my docker container is todo-app_php_1, yours you can check with docker ps command
+~~~
 
-```
 TESTING
 -------
 - `unit`
