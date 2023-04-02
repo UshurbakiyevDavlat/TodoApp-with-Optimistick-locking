@@ -73,9 +73,10 @@ class TodoItemController extends Controller
                 $redirect = $this->todoItemService->update($model, $id);
             } catch (\Exception $exception) {
                 Yii::getLogger()->log($exception->getMessage(), Logger::LEVEL_ERROR);
-                Yii::$app->session->setFlash('error', 'The record was updated by another user. Please refresh the page and try again.');
+                Yii::$app->session->setFlash('error', 'Conflict, item was changed by another user, your changes will be lost. [Edit again] [Cancel]');
                 return $this->render('update', [
                     'model' => $model,
+                    'editAgain' => true
                 ]);
             }
 

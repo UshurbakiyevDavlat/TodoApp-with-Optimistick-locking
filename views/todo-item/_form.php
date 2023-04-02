@@ -16,13 +16,20 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'priority')->textInput() ?>
 
-    <?= $form->field($model, 'done')->textInput() ?>
+    <?= $form->field($model, 'done')->checkbox() ?>
 
     <?= $form->field($model, 'version')->hiddenInput()->label(false) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?php if (!$editAgain) : ?>
+            <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+
+        <?php elseif ($editAgain) : ?>
+            <?= Html::a('Edit again', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?php endif; ?>
+
         <?= Html::a('Cancel', ['index'], ['class' => 'btn btn-danger']) ?>
+
         <?php if (!$model->isNewRecord) : ?>
             <?= Html::a('Delete', ['delete', 'id' => $model->id], [
                 'class' => 'btn btn-danger',
