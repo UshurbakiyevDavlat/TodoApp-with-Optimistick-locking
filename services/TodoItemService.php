@@ -10,13 +10,6 @@ use yii\web\Response;
 
 class TodoItemService
 {
-    private TodoItem $todoItemRepository;
-
-    public function __construct(TodoItem $todoItemRepository)
-    {
-        $this->todoItemRepository = $todoItemRepository;
-    }
-
     /**
      * @throws StaleObjectException
      * @throws NotFoundHttpException
