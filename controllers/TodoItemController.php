@@ -120,9 +120,10 @@ class TodoItemController extends Controller
         $item->done = !$item->done;
 
         if ($item->save(false)) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
             return ['success' => true, 'done' => $item->done];
         }
-
+        Yii::$app->response->format = Response::FORMAT_JSON;
         return ['success' => false, 'errors' => $item->errors];
     }
 
