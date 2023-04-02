@@ -122,24 +122,9 @@ class TodoItemController extends Controller
         $response = Yii::$app->getResponse();
         $body = $request->getRawBody();
         $data = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
-
         $model = $this->findModel($id);
 
-        if ($request->isPut && $data['done'] !== null) {
-            $model->done = (bool)$data['done'];
-            if ($model->save()) {
-                $response->statusCode = 200;
-                $response->format = Response::FORMAT_JSON;
-                return ['success' => true, 'done' => $model->done];
-            }
-            $response->statusCode = 422;
-            $response->format = Response::FORMAT_JSON;
-            return ['success' => false, 'errors' => $model->errors];
-        }
-
-        $response->statusCode = 400;
-        $response->format = Response::FORMAT_JSON;
-        return ['success' => false, 'message' => 'Invalid request', 'params' => $request->getBodyParams()];
+        return $this->todoItemService->done($request, $response, $data, $model);
     }
 
     /**

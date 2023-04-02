@@ -1,10 +1,12 @@
 <?php
+
 namespace app\services;
 
 use app\models\TodoItem;
 use Yii;
 use yii\db\StaleObjectException;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 class TodoItemService
 {
@@ -42,5 +44,24 @@ class TodoItemService
             throw new StaleObjectException($e->getMessage());
         }
         return $result;
+    }
+
+    public function done($request,$response, $data,$model): array
+    {
+        if ($request->isPut && $data['done'] !== null) {
+            $model->done = (bool)$data['done'];
+            if ($model->save()) {
+                $response->statusCode = 200;
+                $response->format = Response::FORMAT_JSON;
+                return ['success' => true, 'done' => $model->done];
+            }
+            $response->statusCode = 422;
+            $response->format = Response::FORMAT_JSON;
+            return ['success' => false, 'errors' => $model->errors];
+        }
+
+        $response->statusCode = 400;
+        $response->format = Response::FORMAT_JSON;
+        return ['success' => false, 'message' => 'Invalid request'];
     }
 }
