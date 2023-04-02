@@ -113,7 +113,7 @@ class TodoItemController extends Controller
     /**
      * @throws NotFoundHttpException
      */
-    public function actionToggleDone($id)
+    public function actionToggleDone($id): Response
     {
         $model = $this->findModel($id);
         $model->done = !$model->done;
