@@ -1,5 +1,6 @@
 <?php
 
+use yii\db\Expression;
 use yii\db\Migration;
 
 /**
@@ -17,9 +18,9 @@ class m230402_034506_create_todo_items_table extends Migration
             'title' => $this->text()->notNull(),
             'priority' => $this->integer()->notNull()->defaultValue(0),
             'done' => $this->boolean()->notNull()->defaultValue(false),
-            'created_at' => $this->dateTime()->notNull(),
-            'updated_at' => $this->dateTime()->notNull(),
-            'version' => $this->integer()->notNull()->defaultValue(1),
+            'created_at' => $this->dateTime()->notNull()->defaultValue(new Expression('NOW()')),
+            'updated_at' => $this->dateTime()->notNull()->defaultValue(new Expression('NOW()')),
+            'version' => $this->integer()->notNull()->defaultValue(0),
         ]);
 
         // Create index on priority column
