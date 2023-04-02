@@ -27,7 +27,7 @@ class TodoItem extends ActiveRecord
     public function optimisticLock(): ?string
     {
         // Disable optimistic locking for the 'done' action
-        if (Yii::$app->controller->action->id === 'done') {
+        if (is_object(Yii::$app->controller) && Yii::$app->controller->action->id === 'done') {
             return null;
         }
         return 'version';

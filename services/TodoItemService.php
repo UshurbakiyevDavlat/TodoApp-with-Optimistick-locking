@@ -21,11 +21,11 @@ class TodoItemService
      * @throws StaleObjectException
      * @throws NotFoundHttpException
      */
-    public function update($model, $id): array
+    public function update($model): array
     {
         $result = [];
         // get the latest version of the model from the database
-        $latestModel = $this->todoItemRepository->findOne($id);
+        $latestModel = $model;
         if (!$latestModel) {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
