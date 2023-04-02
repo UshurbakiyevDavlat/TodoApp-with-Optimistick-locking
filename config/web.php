@@ -11,7 +11,7 @@ $config = [
     'bootstrap' => ['log'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
+        '@npm' => '@vendor/npm-asset',
     ],
     'components' => [
         'request' => [
@@ -47,26 +47,26 @@ $config = [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-                'rules' => [
-                    // Route to the TodoItemController's index action
-                    'todo' => 'todo-item/index',
+            'rules' => [
+                // Route to the TodoItemController's index action
+                'todo' => 'todo-item/index',
 
-                    // Route to the TodoItemController's view action for a specific item
-                    'todo/<id:\d+>' => 'todo-item/view',
+                // Route to the TodoItemController's view action for a specific item
+                'todo/<id:\d+>' => 'todo-item/view',
 
-                    // Route to the TodoItemController's create action
-                    'todo/create' => 'todo-item/create',
+                // Route to the TodoItemController's create action
+                'todo/create' => 'todo-item/create',
 
-                    // Route to the TodoItemController's update action for a specific item
-                    'todo/<id:\d+>/update' => 'todo-item/update',
+                // Route to the TodoItemController's update action for a specific item
+                'todo/<id:\d+>/update' => 'todo-item/update',
 
-                    // Route to the TodoItemController's delete action for a specific item
-                    'todo/<id:\d+>/delete' => 'todo-item/delete',
+                // Route to the TodoItemController's delete action for a specific item
+                'todo/<id:\d+>/delete' => 'todo-item/delete',
 
-                    // Route to the TodoItemController's done action for a specific item
-                    'todo/<id:\d+>/done' => 'todo-item/done',
-                ],
+                // Route to the TodoItemController's done action for a specific item
+                'PUT todo-item/<id:\d+>/done' => 'todo-item/done',
             ],
+        ],
     ],
     'params' => $params,
 ];

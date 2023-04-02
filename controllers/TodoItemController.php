@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\TodoItem;
 use app\services\TodoItemService;
 use Yii;
+use yii\base\InvalidConfigException;
 use yii\data\ActiveDataProvider;
 use yii\db\Exception;
 use yii\db\StaleObjectException;
@@ -113,18 +114,32 @@ class TodoItemController extends Controller
 
     /**
      * @throws NotFoundHttpException
+     * @throws \JsonException|InvalidConfigException
      */
     public function actionDone($id): array
     {
-        $item = $this->findModel($id);
-        $item->done = !$item->done;
+        $request = Yii::$app->getRequest();
+        $response = Yii::$app->getResponse();
+        $body = $request->getRawBody();
+        $data = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
 
-        if ($item->save(false)) {
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['success' => true, 'done' => $item->done];
+        $model = $this->findModel($id);
+
+        if ($request->isPut && $data['done'] !== null) {
+            $model->done = (bool)$data['done'];
+            if ($model->save()) {
+                $response->statusCode = 200;
+                $response->format = Response::FORMAT_JSON;
+                return ['success' => true, 'done' => $model->done];
+            }
+            $response->statusCode = 422;
+            $response->format = Response::FORMAT_JSON;
+            return ['success' => false, 'errors' => $model->errors];
         }
-        Yii::$app->response->format = Response::FORMAT_JSON;
-        return ['success' => false, 'errors' => $item->errors];
+
+        $response->statusCode = 400;
+        $response->format = Response::FORMAT_JSON;
+        return ['success' => false, 'message' => 'Invalid request', 'params' => $request->getBodyParams()];
     }
 
     /**

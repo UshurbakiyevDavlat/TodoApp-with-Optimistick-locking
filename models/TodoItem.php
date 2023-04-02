@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use Yii;
 use yii\db\ActiveRecord;
 
 class TodoItem extends ActiveRecord
@@ -23,8 +24,12 @@ class TodoItem extends ActiveRecord
         return '{{%todo_item}}';
     }
 
-    public function optimisticLock(): string
+    public function optimisticLock(): ?string
     {
+        // Disable optimistic locking for the 'done' action
+        if (Yii::$app->controller->action->id === 'done') {
+            return null;
+        }
         return 'version';
     }
 
