@@ -114,13 +114,16 @@ class TodoItemController extends Controller
     /**
      * @throws NotFoundHttpException
      */
-    public function actionToggleDone($id): Response
+    public function actionDone($id): array
     {
-        $model = $this->findModel($id);
-        $model->done = !$model->done;
-        $model->save(false); // disable validation to allow for optimistic locking to work
+        $item = $this->findModel($id);
+        $item->done = !$item->done;
 
-        return $this->redirect(['view', 'id' => $model->id]);
+        if ($item->save(false)) {
+            return ['success' => true, 'done' => $item->done];
+        }
+
+        return ['success' => false, 'errors' => $item->errors];
     }
 
     /**

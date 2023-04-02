@@ -21,10 +21,10 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'version')->hiddenInput()->label(false) ?>
 
     <div class="form-group">
-        <?php if (!$editAgain) : ?>
+        <?php if (isset($editAgain) && !$editAgain) : ?>
             <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
 
-        <?php elseif ($editAgain) : ?>
+        <?php elseif (isset($editAgain) && $editAgain) : ?>
             <?= Html::a('Edit again', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
 
