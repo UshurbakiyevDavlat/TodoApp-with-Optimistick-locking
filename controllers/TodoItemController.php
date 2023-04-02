@@ -3,17 +3,27 @@
 namespace app\controllers;
 
 use app\models\TodoItem;
+use app\services\TodoItemService;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\db\Exception;
 use yii\db\StaleObjectException;
 use yii\filters\VerbFilter;
+use yii\log\Logger;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
 class TodoItemController extends Controller
 {
+    private TodoItemService $todoItemService;
+
+    public function __construct($id, $module, TodoItemService $todoItemService, $config = [])
+    {
+        parent::__construct($id, $module, $config);
+        $this->todoItemService = $todoItemService;
+    }
+
     public function behaviors(): array
     {
         return [
@@ -59,26 +69,17 @@ class TodoItemController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
-            // get the latest version of the model from the database
-            $latestModel = $this->findModel($id);
-
-            // update the model attributes with the ones from the submitted form
-            $latestModel->attributes = Yii::$app->request->post('TodoItem');
-
-            // update the version attribute
-            $latestModel->version = $model->version;
-
             try {
-                if ($latestModel->save()) {
-                    return $this->redirect(['view', 'id' => $latestModel->id]);
-                }
-            } catch (StaleObjectException $e) {
-                Yii::$app->session->setFlash('error', 'The record has been updated by another user. Please reload the page and try again.');
-                $model = $this->findModel($id);
+                $redirect = $this->todoItemService->update($model, $id);
+            } catch (\Exception $exception) {
+                Yii::getLogger()->log($exception->getMessage(), Logger::LEVEL_ERROR);
+                Yii::$app->session->setFlash('error', 'The record was updated by another user. Please refresh the page and try again.');
                 return $this->render('update', [
                     'model' => $model,
                 ]);
             }
+
+            return $this->redirect($redirect);
         }
 
         return $this->render('update', [
