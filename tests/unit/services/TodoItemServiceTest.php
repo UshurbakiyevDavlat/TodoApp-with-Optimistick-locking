@@ -7,11 +7,8 @@ use app\services\TodoItemService;
 use Codeception\Stub;
 use Codeception\Test\Unit;
 use Exception;
-use Yii;
 use yii\db\StaleObjectException;
 use yii\web\NotFoundHttpException;
-use yii\web\Request;
-use yii\web\Response;
 
 class TodoItemServiceTest extends Unit
 {
