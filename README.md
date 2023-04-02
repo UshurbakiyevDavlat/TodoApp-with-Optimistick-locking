@@ -95,3 +95,7 @@ Unit tests are testing the system components
     - Content-type should be : application/json
     - Body should be : {"done": true} or {"done": false}
 ~~~
+
+![image](https://user-images.githubusercontent.com/66309313/229360477-e6f9a664-094e-4d59-9f5d-fdceea33db5d.png)
+![image](https://user-images.githubusercontent.com/66309313/229360526-510ce1a5-d6d2-4c2d-bc3a-eafd9864f67a.png)
+![image](https://user-images.githubusercontent.com/66309313/229360591-8cfbef3d-a0bf-4219-a042-dd0e1c5e52bb.png)
