@@ -99,3 +99,7 @@ Unit tests are testing the system components
 ![image](https://user-images.githubusercontent.com/66309313/229360477-e6f9a664-094e-4d59-9f5d-fdceea33db5d.png)
 ![image](https://user-images.githubusercontent.com/66309313/229360526-510ce1a5-d6d2-4c2d-bc3a-eafd9864f67a.png)
 ![image](https://user-images.githubusercontent.com/66309313/229360591-8cfbef3d-a0bf-4219-a042-dd0e1c5e52bb.png)
+
+В эндпоинте, нужно обязательно указать в хедерах X-CSRF-TOKEN, взять его можно из сессии в браузере или отправив гет запрос и взять из ответа.
+![image](https://user-images.githubusercontent.com/66309313/229360732-af4fc105-a712-4d5b-838a-6961e75507bd.png)
+
